@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--This scenario file was created by SGDiCoP on 2014-04-16T15:14:48-->
+<scenario>
+    <!--Obstacles-->
+  <obstacle x1="-0.5" y1="-0.5" x2="13.5" y2="-0.5"/>
+  <obstacle x1="15.5" y1="-0.5" x2="17.5" y2="-0.5"/>
+
+  <obstacle x1="-0.5" y1="-0.5" x2="-0.5" y2="19.5"/>
+  <obstacle x1="-0.5" y1="21.5" x2="-0.5" y2="24.5"/>
+
+  <obstacle x1="-0.5" y1="24.5" x2="17.5" y2="24.5"/>
+  <obstacle x1="17.5" y1="24.5" x2="17.5" y2="-0.5"/>
+
+  <!--obstacle x1="5" y1="4.5" x2="5" y2="7.0"/>
+  <obstacle x1="8.0" y1="4.5" x2="8.0" y2="7.0"/>
+  <obstacle x1="11" y1="4.5" x2="11" y2="7.0"/-->
+
+  <!--Waypoints (incl. WaitingQueues)-->
+  <waypoint id="bookshop_entry" x="0" y="20" r="1"/>
+  <waypoint id="bookshop_exit" x="14.5" y="0" r="1"/>
+
+  <waypoint id="point1" x="14" y="21" r="2"/>
+  <waypoint id="point2" x="6" y="18" r="2"/>
+  <waypoint id="point3" x="3" y="15" r="2"/>
+  <waypoint id="point4" x="13" y="10" r="2"/>
+  <waypoint id="point5" x="3" y="14" r="2"/>
+
+  <queue id="cashier1" x="4" y="5.5" direction="270"/>
+  <queue id="cashier2" x="6.5" y="5.5" direction="270"/>
+  <queue id="cashier3" x="9.5" y="5.5" direction="270"/>
+
+
+
+    <!--Agents-->
+    <agent x="5" y="18" n="8" dx="1" dy="1" type="0">
+        <addwaypoint id="point2"/>
+        <addwaypoint id="bookshop_entry"/>
+        <addwaypoint id="point1"/>
+        <addwaypoint id="point3"/>
+        <addwaypoint id="point5"/>
+        <addqueue id="cashier1"/>
+        <addwaypoint id="bookshop_exit"/>
+    </agent>
+    <agent x="6" y="10" n="8" dx="3" dy="3" type="0">
+        <addwaypoint id="bookshop_entry"/>
+        <addwaypoint id="point2"/>
+        <addwaypoint id="point5"/>
+        <addwaypoint id="point3"/>
+        <addqueue id="cashier2"/>
+        <addwaypoint id="bookshop_exit"/>
+    </agent>
+    <agent x="8" y="15" n="8" dx="3" dy="3" type="0">
+        <addwaypoint id="point1"/>
+        <addwaypoint id="point5"/>
+        <addwaypoint id="point2"/>
+        <addwaypoint id="bookshop_entry"/>
+        <addwaypoint id="point4"/>
+        <addwaypoint id="point1"/>
+        <addwaypoint id="point3"/>
+        <addqueue id="cashier3"/>
+        <addwaypoint id="bookshop_exit"/>
+        <addwaypoint id="point5"/>
+        <addwaypoint id="point2"/>
+        <addwaypoint id="point4"/>
+    </agent>
+    
+</scenario>
