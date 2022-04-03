@@ -25,7 +25,7 @@
 </model>
 
 
-<!--<model name="actor_model">
+<!--model name="actor_model">
   <link name="link">
     <collision name="collision">
       <pose>0 0 0 1.5708 0 0</pose>
@@ -40,12 +40,12 @@
       <geometry>
         <mesh>
           <scale>0.01 0.01 0.01</scale>
-          <uri>model://pedsim_gazebo_plugin/meshes/actor_model.obj</uri>
+          <uri>model://pedsim_gazebo_plugin/meshes/BaseMeshsculpt2.obj</uri>
         </mesh>
       </geometry>
     </visual>
   </link>
-</model>-->
+</model-->
 
 
 

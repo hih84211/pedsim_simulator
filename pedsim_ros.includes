@@ -1,0 +1,10 @@
+2ndparty/spencer_tracking_rviz_plugin/src
+2ndparty/spencer_tracking_rviz_plugin/src/visuals
+3rdparty/libpedsim/include/pedsim
+pedsim_sensors/include/pedsim_sensors
+pedsim_simulator/include/pedsim_simulator
+pedsim_simulator/include/pedsim_simulator/element
+pedsim_simulator/include/pedsim_simulator/force
+pedsim_simulator/include/pedsim_simulator/waypointplanner
+pedsim_utils/include/pedsim_utils
+pedsim_visualizer/include/pedsim_visualizer

@@ -35,8 +35,8 @@
 #include <pedsim_simulator/element/agentcluster.h>
 #include <pedsim_simulator/scene.h>
 #include <pedsim_simulator/simulator.h>
-
 #include <pedsim_utils/geometry.h>
+#include <iostream>
 
 using namespace pedsim;
 
@@ -397,6 +397,7 @@ void Simulator::publishObstacles() {
 }
 
 void Simulator::publishWaypoints() {
+
   pedsim_msgs::Waypoints sim_waypoints;
   sim_waypoints.header = createMsgHeader();
   for (const auto& waypoint : SCENE.getWaypoints()) {
@@ -422,6 +423,7 @@ std::string Simulator::agentStateToActivity(
       activity = pedsim_msgs::AgentState::TYPE_GROUP_MOVING;
       break;
     case AgentStateMachine::AgentState::StateQueueing:
+      std::cout<<"This is agentStateToActivity()!!!!!!!!"<<std::endl;
       activity = pedsim_msgs::AgentState::TYPE_WAITING_IN_QUEUE;
       break;
     case AgentStateMachine::AgentState::StateShopping:
@@ -431,6 +433,7 @@ std::string Simulator::agentStateToActivity(
     case AgentStateMachine::AgentState::StateWaiting:
       break;
   }
+
   return activity;
 }
 

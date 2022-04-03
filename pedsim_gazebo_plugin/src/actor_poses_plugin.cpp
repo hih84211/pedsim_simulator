@@ -101,7 +101,7 @@ namespace gazebo
         const float MODEL_OFFSET = 0.75;
 
     };
-    GZ_REGISTER_WORLD_PLUGIN(ActorPosesPlugin)
+    GZ_REGISTER_WORLD_PLUGIN(ActorPosesPlugin);
 }
 
 
