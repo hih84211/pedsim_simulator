@@ -3,7 +3,6 @@
   <arg name="rqt_teleop" default="false"/>
   <arg name="visualize" default="true"/>
   <arg name="with_robot" default="false"/>
-
   <arg name="simulation_factor" default="4.0"/> <!-- Speed up -->
   <arg name="update_rate" default="60.0"/> <!-- Hz -->
 
