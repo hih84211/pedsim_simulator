@@ -32,25 +32,33 @@
 #include <QApplication>
 
 #include <pedsim_simulator/simulator.h>
+#include <iostream>
+#include <string.h>
+using namespace std;
 
-int main(int argc, char** argv) {
-  QApplication app(argc, argv);
+int main(int argc, char** argv)
+{
+    argc = 3;
+    argv[0] = (char*)"/home/peter/my_ros_ws/devel/lib/pedsim_simulator/pedsim_simulator";
+    argv[1] = (char*)"__name:=pedsim_simulator";
+    argv[2] = (char*)"__log:=/home/peter/.ros/log/8a63eef8-b4d2-11ec-999c-d45d64b3c741/pedsim_simulator-1.log";
+    QApplication app(argc, argv);
 
-  // initialize resources
-  ros::init(argc, argv, "pedsim_simulator");
-  ros::NodeHandle node("~");
-  Simulator sm(node);
+    // initialize resources
+    ros::init(argc, argv, "pedsim_simulator");
+    ros::NodeHandle node("~");
+    Simulator sm(node);
 
-  // use default SIGINT handler so CTRL+C works
-  signal(SIGINT, SIG_DFL);
+    // use default SIGINT handler so CTRL+C works
+    signal(SIGINT, SIG_DFL);
 
-  if (sm.initializeSimulation()) {
-    ROS_INFO("node initialized, now running ");
-    sm.runSimulation();
-  } else {
-    ROS_WARN("Could not initialize simulation, aborting");
-    return EXIT_FAILURE;
-  }
+    if (sm.initializeSimulation()) {
+        ROS_INFO("node initialized, now running ");
+        sm.runSimulation();
+    } else {
+        ROS_WARN("Could not initialize simulation, aborting");
+        return EXIT_FAILURE;
+    }
 
-  return app.exec();
+    return app.exec();
 }

@@ -36,7 +36,11 @@
 #include <pedsim_simulator/scene.h>
 #include <pedsim_simulator/simulator.h>
 #include <pedsim_utils/geometry.h>
+
+//Added by Peter
 #include <iostream>
+#include <pedsim/ped_waypoint.h>
+#include <string.h>
 
 using namespace pedsim;
 
@@ -138,7 +142,9 @@ bool Simulator::initializeSimulation() {
 void Simulator::runSimulation() {
   ros::Rate r(CONFIG.updateRate);
 
+  int counter = 0;
   while (ros::ok()) {
+      counter++;
     if (!robot_) {
       // setup the robot
       for (Agent* agent : SCENE.getAgents()) {
@@ -146,6 +152,7 @@ void Simulator::runSimulation() {
           robot_ = agent;
           last_robot_orientation_ =
               poseFrom2DVelocity(robot_->getvx(), robot_->getvy());
+
         }
       }
     }
@@ -304,6 +311,7 @@ void Simulator::publishAgents() {
   };
 
   for (const Agent* a : SCENE.getAgents()) {
+    int id = a->getId();
     pedsim_msgs::AgentState state;
     state.header = createMsgHeader();
 
@@ -321,6 +329,12 @@ void Simulator::publishAgents() {
 
     AgentStateMachine::AgentState sc = a->getStateMachine()->getCurrentState();
     state.social_state = agentStateToActivity(sc);
+       Ped::Twaypoint* next_point = a->getCurrentWaypoint();
+    std::string out_S = "Agent: " + to_string(next_point->getId()) + ", next point: (" +
+            to_string(next_point->getx()) + ", " + to_string(next_point->gety()) + ")";
+    // show agent state
+    // std::cout << out_S << std::endl;
+
     if (a->getType() == Ped::Tagent::ELDER) {
       state.social_state = pedsim_msgs::AgentState::TYPE_STANDING;
     }
@@ -423,7 +437,6 @@ std::string Simulator::agentStateToActivity(
       activity = pedsim_msgs::AgentState::TYPE_GROUP_MOVING;
       break;
     case AgentStateMachine::AgentState::StateQueueing:
-      std::cout<<"This is agentStateToActivity()!!!!!!!!"<<std::endl;
       activity = pedsim_msgs::AgentState::TYPE_WAITING_IN_QUEUE;
       break;
     case AgentStateMachine::AgentState::StateShopping:
