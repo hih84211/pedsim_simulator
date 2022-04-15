@@ -1,5 +1,5 @@
 # Pedestrian Simulator
-<img src=https://github.com/srl-freiburg/pedsim_ros/blob/master/pedsim_simulator/images/pedsim_gazebo.png width=400/> 
+<img src=https://github.com/hih84211/pedsim_simulator/tree/master/pedsim_simulator/images/pedsim_gazebo.png width=400/> 
 The implementation is based on [Pedsim_ros](https://github.com/srl-freiburg/pedsim_ros), ROS packages that wrap a crowd simulator based on Christian Gloor's [libpedsim](http://pedsim.silmaril.org/) library.
 The pedestrian model is based on the social force model of [Helbing et. al](http://arxiv.org/pdf/cond-mat/9805244.pdf).
 ### Features
