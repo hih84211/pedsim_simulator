@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scenario>
+    <!--Obstacles-->
+  <obstacle x1="8.5" y1="8.5" x2="8.5" y2="-8.5"/>
+  <obstacle x1="8.5" y1="8.5" x2="-8.5" y2="8.5"/>
+  <obstacle x1="-8.5" y1="8.5" x2="-8.5" y2="-8.5"/>
+  <obstacle x1="-8.5" y1="-8.5" x2="8.5" y2="-8.5"/>
+
+
+  <!--Waypoints (incl. WaitingQueues)-->
+
+  <waypoint id="point1" x="4" y="-4" r="1"/>
+  <waypoint id="point2" x="-6" y="6.5" r="1"/>
+  <waypoint id="point3" x="3" y="6" r="1"/>
+  <waypoint id="point4" x="-3" y="2.5" r="1"/>
+  <waypoint id="point5" x="5.5" y="4" r="1"/>
+  <waypoint id="point6" x="-7" y="-1" r="1"/>
+  <waypoint id="point7" x="2" y="-1.5" r="1"/>
+  <waypoint id="point8" x="-7" y="-4" r="1"/>
+  <waypoint id="point9" x="3.5" y="-6" r="1"/>
+
+
+    <!--Agents-->
+    <agent x="5" y="5" n="1" dx="3" dy="3" type="0" purpose="2">
+        <addwaypoint id="point2"/>
+        <addwaypoint id="point5"/>
+        <addwaypoint id="point6"/>
+        <addwaypoint id="point8"/>
+        <addwaypoint id="point3"/>
+        <addwaypoint id="point9"/>
+        <addwaypoint id="point1"/>
+    </agent>
+    <agent x="-2" y="4" n="1" dx="3" dy="3" type="0" purpose="2">
+        <addwaypoint id="point1"/>
+        <addwaypoint id="point5"/>
+        <addwaypoint id="point2"/>
+        <addwaypoint id="point4"/>
+        <addwaypoint id="point7"/>
+        <addwaypoint id="point3"/>
+        <addwaypoint id="point8"/>
+    </agent>
+    <agent x="-5" y="-1.5" n="1" dx="3" dy="3" type="0" purpose="2">
+        <addwaypoint id="point5"/>
+        <addwaypoint id="point2"/>
+        <addwaypoint id="point4"/>
+        <addwaypoint id="point7"/>
+        <addwaypoint id="point3"/>
+        <addwaypoint id="point9"/>
+        <addwaypoint id="point6"/>
+    </agent>
+    <agent x="-6" y="-5" n="1" dx="3" dy="3" type="0" purpose="2">
+        <addwaypoint id="point4"/>
+        <addwaypoint id="point7"/>
+        <addwaypoint id="point3"/>
+        <addwaypoint id="point8"/>
+        <addwaypoint id="point5"/>
+        <addwaypoint id="point6"/>
+        <addwaypoint id="point2"/>
+    </agent>
+    <agent x="3" y="-4" n="1" dx="3" dy="3" type="0" purpose="2">
+      <addwaypoint id="point9"/>
+      <addwaypoint id="point1"/>
+      <addwaypoint id="point3"/>
+      <addwaypoint id="point8"/>
+      <addwaypoint id="point2"/>
+      <addwaypoint id="point6"/>
+      <addwaypoint id="point7"/>
+  </agent>
+    
+</scenario>

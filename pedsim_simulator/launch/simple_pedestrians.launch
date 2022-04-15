@@ -1,10 +1,10 @@
 <launch>
-  <arg name="kbd_teleop" default="true"/>
+  <arg name="kbd_teleop" default="false"/>
   <arg name="rqt_teleop" default="false"/>
   <arg name="visualize" default="true"/>
   <arg name="with_robot" default="false"/>
-  <arg name="simulation_factor" default="4.0"/> <!-- Speed up -->
-  <arg name="update_rate" default="60.0"/> <!-- Hz -->
+  <arg name="simulation_factor" default="1."/> <!-- Speed up -->
+  <arg name="update_rate" default="25.0"/> <!-- Hz -->
 
   <!-- Simulator -->
   <include file="$(find pedsim_simulator)/launch/simulator_tb3.launch">
@@ -18,8 +18,8 @@
     <arg name="max_robot_speed" value="1.5"/>
     <arg name="robot_mode" value="1"/>
     <arg name="enable_groups" value="true"/>
-    <arg name="pose_initial_x" value="2.0"/>
-    <arg name="pose_initial_y" value="3.0"/>
+    <arg name="pose_initial_x" value="0.0"/>
+    <arg name="pose_initial_y" value="0.0"/>
     <arg name="pose_initial_theta" value="0.7"/>
   </include>
 
