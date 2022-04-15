@@ -1,17 +1,19 @@
 <launch>
+  <arg name="scene_name" default="my_scene2"/>
   <arg name="kbd_teleop" default="false"/>
   <arg name="rqt_teleop" default="false"/>
   <arg name="visualize" default="true"/>
   <arg name="with_robot" default="true"/>
-  <arg name="simulation_factor" default="3.0"/> <!-- Speed up -->
-  <arg name="update_rate" default="60.0"/> <!-- Hz -->
+  <arg name="simulation_factor" default="1.0"/> <!-- Speed up -->
+  <arg name="update_rate" default="25.0"/> <!-- Hz -->
 
   <!-- Simulator -->
   <!--include file="$(find pedsim_simulator)/launch/simulator.launch"-->
   <include file="$(find pedsim_simulator)/launch/simulator_tb3.launch">
     <arg name="kbd_teleop" value="$(arg kbd_teleop)"/>
     <arg name="rqt_teleop" value="$(arg rqt_teleop)"/>
-    <arg name="scene_file" value="$(find pedsim_simulator)/scenarios/my_scene.xml"/>
+    <arg name="scene_name" default="$(arg scene_name)"/>
+    <arg name="scene_file" default="$(find pedsim_simulator)/scenarios/$(arg scene_name).xml"/>
     <arg name="with_robot" value="$(arg with_robot)"/>
     <arg name="simulation_factor" value="$(arg simulation_factor)"/>
     <arg name="update_rate" value="$(arg update_rate)"/>
@@ -19,8 +21,8 @@
     <arg name="max_robot_speed" value="1.5"/>
     <arg name="robot_mode" value="1"/>
     <arg name="enable_groups" value="true"/>
-    <arg name="pose_initial_x" value="2.0"/>
-    <arg name="pose_initial_y" value="3.0"/>
+    <arg name="pose_initial_x" value="0.0"/>
+    <arg name="pose_initial_y" value="0.0"/>
     <arg name="pose_initial_theta" value="0.7"/>
   </include>
 

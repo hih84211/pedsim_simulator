@@ -1,7 +1,7 @@
 <launch>
     <arg name="model" default="$(env TURTLEBOT3_MODEL)" doc="model type [burger, waffle, waffle_pi]"/>
-    <arg name="pose_initial_x" default="4.0"/>
-    <arg name="pose_initial_y" default="4.0"/>
+    <arg name="pose_initial_x" default="0.0"/>
+    <arg name="pose_initial_y" default="0.0"/>
     <arg name="pose_initial_z" default="0.0"/>
     <arg name="with_robot" default="true"/>
     <!-- this file is auto generated using pedsim_gazebo_plugin pkg -->

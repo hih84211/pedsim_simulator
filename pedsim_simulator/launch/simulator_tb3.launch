@@ -8,8 +8,8 @@
   <arg name="robot_mode" default="1"/>
   <arg name="enable_groups" default="true"/>
   <arg name="with_robot" default="true"/>
-  <arg name="pose_initial_x" default="2.0"/>
-  <arg name="pose_initial_y" default="3.0"/>
+  <arg name="pose_initial_x" default="0.0"/>
+  <arg name="pose_initial_y" default="0.0"/>
   <arg name="pose_initial_z" default="0.0"/>
   <arg name="pose_initial_theta" default="0.0"/>
   <arg name="simulation_factor" default="1"/>

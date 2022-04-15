@@ -1,5 +1,5 @@
 <launch>
-  <arg name="kbd_teleop" default="true"/>
+  <arg name="kbd_teleop" default="false"/>
   <arg name="rqt_teleop" default="false"/>
   <arg name="pose_initial_x" default="5.0"/>
   <arg name="pose_initial_y" default="5.0"/>
