@@ -4,9 +4,9 @@
     <arg name="pose_initial_y" default="4.0"/>
     <arg name="pose_initial_z" default="0.0"/>
     <arg name="with_robot" default="true"/>
-    <!-- this file is auto generated using pedsim_gazebo_plugin pkg -->
+        
     <include file="$(find gazebo_ros)/launch/empty_world.launch">
-        <arg name="world_name" value="$(find pedsim_gazebo_plugin)/worlds/my_scene.world"/>
+        <arg name="world_name" value="$(find pedsim_gazebo_plugin)/worlds/my_scene2.world"/>
     </include>
          
     <!-- this node spawn pedsim actors to gazebo once, then the plugin updates their pose -->

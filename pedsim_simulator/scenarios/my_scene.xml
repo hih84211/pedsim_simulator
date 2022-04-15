@@ -15,6 +15,9 @@
   <obstacle x1="10" y1="4.5" x2="10" y2="7.0"/>
 
   <!--Waypoints (incl. WaitingQueues)-->
+  <waypoint id="robot_goal" x="22" y="27" r="2"/>
+  <waypoint id="robot_start" x="4" y="4" r="2"/>
+
   <waypoint id="bookshop_entry" x="0" y="20" r="1"/>
   <waypoint id="bookshop_exit" x="14.5" y="0" r="1"/>
 
@@ -33,6 +36,12 @@
   <queue id="counter1" x="4.35" y="5." direction="270"/>
   <queue id="counter2" x="6.85" y="5." direction="270"/>
   <queue id="counter3" x="9.35" y="5." direction="270"/>
+
+    <!--Robot-->
+    <agent x="17" y="11" n="1" dx="0" dy="0" type="2">
+        <addwaypoint id="robot_start"/>
+        <addwaypoint id="robot_goal"/>
+    </agent>
 
     <!--Agents-->
     <!--agent x="5" y="18" n="20" dx="1" dy="1" type="0">

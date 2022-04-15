@@ -9,33 +9,31 @@ import rospy
 from gazebo_msgs.srv import SpawnModel
 from geometry_msgs.msg import *
 from rospkg import RosPack
-from pedsim_msgs.msg  import AgentStates
+from pedsim_msgs.msg import AgentStates
 
 # xml file containing a gazebo model to represent agent, currently is represented by a cubic but can be changed
 global xml_file
 
+
 def actor_poses_callback(actors):
     for actor in actors.agent_states:
-        actor_id = str( actor.id )
+        actor_id = str(actor.id)
         actor_pose = actor.pose
         rospy.loginfo("Spawning model: actor_id = %s", actor_id)
 
-        model_pose = Pose(Point(x= actor_pose.position.x,
-                               y= actor_pose.position.y,
-                               z= actor_pose.position.z),
-                         Quaternion(actor_pose.orientation.x,
-                                    actor_pose.orientation.y,
-                                    actor_pose.orientation.z,
-                                    actor_pose.orientation.w) )
+        model_pose = Pose(Point(x=actor_pose.position.x,
+                                y=actor_pose.position.y,
+                                z=actor_pose.position.z),
+                          Quaternion(actor_pose.orientation.x,
+                                     actor_pose.orientation.y,
+                                     actor_pose.orientation.z,
+                                     actor_pose.orientation.w))
 
         spawn_model(actor_id, xml_string, "", model_pose, "world")
     rospy.signal_shutdown("all agents have been spawned !")
 
 
-
-
 if __name__ == '__main__':
-
     rospy.init_node("spawn_pedsim_agents")
 
     rospack1 = RosPack()

@@ -27,7 +27,7 @@ void updateLoop() {
     // Get current pose
     double x = g_currentPose.getOrigin().x();
     double y = g_currentPose.getOrigin().y();
-    double theta = tf::getYaw(g_currentPose.getRotation());
+    double theta = tf ::getYaw(g_currentPose.getRotation());
 
     // Get requested translational and rotational velocity
     double v, omega;

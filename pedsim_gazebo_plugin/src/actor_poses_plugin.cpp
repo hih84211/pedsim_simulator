@@ -30,9 +30,41 @@ namespace gazebo
                 return;
             }
             rosNode.reset(new ros::NodeHandle("gazebo_client"));
-            ros::SubscribeOptions so = ros::SubscribeOptions::create<pedsim_msgs::AgentStates>("/pedsim_simulator/simulated_agents", 1,boost::bind(&ActorPosesPlugin::OnRosMsg, this, _1), ros::VoidPtr(),&rosQueue);
+            ros::SubscribeOptions so = ros::SubscribeOptions::create<pedsim_msgs::AgentStates>(
+                    "/pedsim_simulator/simulated_agents", 1,
+                    boost::bind(&ActorPosesPlugin::OnRosMsg, this, _1),
+                    ros::VoidPtr(),&rosQueue);
             rosSub = rosNode->subscribe(so);
+            tbPose = rosNode->advertise<pedsim_msgs::AgentState>("/pedsim_gazebo/turtlebot3_pose", 1);
             rosQueueThread =std::thread(std::bind(&ActorPosesPlugin::QueueThread, this));
+            physics::ModelPtr tmp_model;
+            if(this->world_->ModelByName("turtlebot3_burger") != NULL)
+                tmp_model = this->world_->ModelByName("turtlebot3_burger");
+            else if(this->world_->ModelByName("turtlebot3_waffle") != NULL)
+                tmp_model = this->world_->ModelByName("turtlebot3_waffle");
+            if(tmp_model != NULL)
+            {
+                pedsim_msgs::AgentState first_msg = pedsim_msgs::AgentState();
+                first_msg.pose.position.x = tmp_model->WorldPose().Pos().X();
+                first_msg.pose.position.y = tmp_model->WorldPose().Pos().Y();
+                first_msg.pose.position.z = tmp_model->WorldPose().Pos().Z();
+
+                first_msg.pose.orientation.w = tmp_model->WorldPose().Rot().W();
+                first_msg.pose.orientation.x = tmp_model->WorldPose().Rot().X();
+                first_msg.pose.orientation.y = tmp_model->WorldPose().Rot().Y();
+                first_msg.pose.orientation.z = tmp_model->WorldPose().Rot().Z();
+
+                first_msg.twist.linear.x = tmp_model->WorldLinearVel().X();
+                first_msg.twist.linear.y = tmp_model->WorldLinearVel().Y();
+                first_msg.twist.linear.z = tmp_model->WorldLinearVel().Z();
+
+                first_msg.twist.angular.x = tmp_model->WorldAngularVel().X();
+                first_msg.twist.angular.y = tmp_model->WorldAngularVel().Y();
+                first_msg.twist.angular.z = tmp_model->WorldAngularVel().Z();
+                first_msg.type = 2;
+                tbPose.publish(first_msg);
+            }
+
             // in case you need to change/modify model on update
             // this->updateConnection_ = event::Events::ConnectWorldUpdateBegin(std::bind(&ActorPosesPlugin::OnUpdate, this));
         }
@@ -48,7 +80,7 @@ namespace gazebo
 #else
                 for(unsigned int mdl = 0; mdl < world_->ModelCount(); mdl++) {
 #endif
-                    physics::ModelPtr  tmp_model;
+                    physics::ModelPtr tmp_model;
 #if GAZEBO_MAJOR_VERSION < 9
                     tmp_model = world_->GetModel(mdl);
 #else
@@ -56,7 +88,6 @@ namespace gazebo
 #endif
                     std::string frame_id;
                     frame_id = tmp_model->GetName();
-
                     for (uint actor =0; actor< msg->agent_states.size() ; actor++) {
                         if(frame_id == std::to_string( msg->agent_states[actor].id)  ){
 //                            ROS_INFO_STREAM("actor_id: "<< std::to_string( msg->tracks[actor].track_id) );
@@ -77,11 +108,34 @@ namespace gazebo
                             }
 
                         }
+
+                        if(frame_id == "turtlebot3_burger" || frame_id == "turtlebot3_waffle")
+                        {
+                            // ToDo: Move the publisher to an independent .cpp file (or make it run concurrently)
+                            pedsim_msgs::AgentState state_msg = pedsim_msgs::AgentState();
+                            state_msg.pose.position.x = tmp_model->WorldPose().Pos().X();
+                            state_msg.pose.position.y = tmp_model->WorldPose().Pos().Y();
+                            state_msg.pose.position.z = tmp_model->WorldPose().Pos().Z();
+
+                            state_msg.pose.orientation.w = tmp_model->WorldPose().Rot().W();
+                            state_msg.pose.orientation.x = tmp_model->WorldPose().Rot().X();
+                            state_msg.pose.orientation.y = tmp_model->WorldPose().Rot().Y();
+                            state_msg.pose.orientation.z = tmp_model->WorldPose().Rot().Z();
+
+                            state_msg.twist.linear.x = tmp_model->WorldLinearVel().X();
+                            state_msg.twist.linear.y = tmp_model->WorldLinearVel().Y();
+                            state_msg.twist.linear.z = tmp_model->WorldLinearVel().Z();
+
+                            state_msg.twist.angular.x = tmp_model->WorldAngularVel().X();
+                            state_msg.twist.angular.y = tmp_model->WorldAngularVel().Y();
+                            state_msg.twist.angular.z = tmp_model->WorldAngularVel().Z();
+                            state_msg.type = 2;
+
+                            tbPose.publish(state_msg);
+                        }
                     }
                }
-
           }
-
 
         // ROS helper function that processes messages
         private: void QueueThread() {
@@ -94,6 +148,7 @@ namespace gazebo
     private:
         std::unique_ptr<ros::NodeHandle> rosNode;
         ros::Subscriber rosSub;
+        ros::Publisher tbPose;
         ros::CallbackQueue rosQueue;
         std::thread rosQueueThread;
         physics::WorldPtr world_;

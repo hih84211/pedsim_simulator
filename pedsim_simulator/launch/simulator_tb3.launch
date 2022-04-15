@@ -1,7 +1,8 @@
 <launch>
-  <arg name="kbd_teleop" default="false"/>
-  <arg name="rqt_teleop" default="true"/>
-  <arg name="scene_file" default="$(find pedsim_simulator)/scenarios/my_scene.xml"/>
+  <arg name="kbd_teleop" default="true"/>
+  <arg name="rqt_teleop" default="false"/>
+  <arg name="scene_name" default="my_scene"/>
+  <arg name="scene_file" default="$(find pedsim_simulator)/scenarios/$(arg scene_name).xml"/>
   <arg name="default_queue_size" default="3"/>
   <arg name="max_robot_speed" default="1.5"/>
   <arg name="robot_mode" default="1"/>
@@ -9,10 +10,12 @@
   <arg name="with_robot" default="true"/>
   <arg name="pose_initial_x" default="2.0"/>
   <arg name="pose_initial_y" default="3.0"/>
+  <arg name="pose_initial_z" default="0.0"/>
   <arg name="pose_initial_theta" default="0.0"/>
-  <arg name="simulation_factor" default="3"/>
-  <arg name="update_rate" default="60.0"/>
+  <arg name="simulation_factor" default="1"/>
+  <arg name="update_rate" default="25.0"/>
   <arg name="spawn_period" default="5.0"/>
+  <arg name="with_gazebo" default="true"/>
 
   <!-- main simulator node -->
   <node name="pedsim_simulator" pkg="pedsim_simulator" type="pedsim_simulator" output="screen">
@@ -25,10 +28,11 @@
     <param name="update_rate" value="$(arg update_rate)" type="double"/>
     <param name="spawn_period" value="$(arg spawn_period)" type="double"/>
   </node>
+  <include file="$(find pedsim_gazebo_plugin)/launch/$(arg scene_name).launch"/>
 
   <!-- Robot controller (optional) -->
   <group ns="turtlebot3/control" if="$(arg with_robot)">
-    <include file="$(find pedsim_simulator)/launch/robot_controller.launch">
+    <include file="$(find pedsim_simulator)/launch/turtlebot3_controller.launch">
       <arg name="kbd_teleop" value="$(arg kbd_teleop)"/>
       <arg name="rqt_teleop" value="$(arg rqt_teleop)"/>
       <arg name="pose_initial_x" value="$(arg pose_initial_x)"/>

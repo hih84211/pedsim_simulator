@@ -38,10 +38,14 @@ using namespace std;
 
 int main(int argc, char** argv)
 {
-    argc = 3;
-    argv[0] = (char*)"/home/peter/my_ros_ws/devel/lib/pedsim_simulator/pedsim_simulator";
-    argv[1] = (char*)"__name:=pedsim_simulator";
-    argv[2] = (char*)"__log:=/home/peter/.ros/log/8a63eef8-b4d2-11ec-999c-d45d64b3c741/pedsim_simulator-1.log";
+    if(argc == 1) // For IDE debug
+    {
+        argc = 3;
+        argv[0] = (char*)"/home/peter/my_ros_ws/devel/lib/pedsim_simulator/pedsim_simulator";
+        argv[1] = (char*)"__name:=pedsim_simulator";
+        argv[2] = (char*)"__log:=/home/peter/.ros/log/8a63eef8-b4d2-11ec-999c-d45d64b3c741/pedsim_simulator-1.log";
+    }
+
     QApplication app(argc, argv);
 
     // initialize resources

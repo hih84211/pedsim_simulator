@@ -13,8 +13,7 @@
   </node>
 
   <!-- Keyboard robot steering -->
-  <!--<node pkg="pedsim_simulator" name="pedsim_keyboard_teleop" type="keyboard_teleop.py" output="screen" if="$(arg kbd_teleop)">-->
-  <node pkg="turtlebot3_teleop" type="turtlebot3_teleop_key" name="turtlebot3_teleop_keyboard"  output="screen">
+  <node pkg="pedsim_simulator" name="pedsim_keyboard_teleop" type="keyboard_teleop.py" output="screen" if="$(arg kbd_teleop)">
     <remap from="/turtlebot3/control/pedsim_keyboard_teleop/cmd_vel" to="/turtlebot3/control/cmd_vel"/>
   </node>
 

@@ -61,6 +61,10 @@ add_library(ActorPosesPlugin src/actor_poses_plugin.cpp)
 target_link_libraries(ActorPosesPlugin ${catkin_LIBRARIES} ${GAZEBO_LIBRARIES})
 add_dependencies(ActorPosesPlugin ${catkin_EXPORTED_TARGETS})
 
+#add_library(TurtlebotPosePlugin src/turtlebot_pose_plugin.cpp src/turtlebot_pose_plugin.cpp)
+#target_link_libraries(TurtlebotPosePlugin ${catkin_LIBRARIES} ${GAZEBO_LIBRARIES})
+#add_dependencies(TurtlebotPosePlugin ${catkin_EXPORTED_TARGETS})
+
 #############
 ## Install ##
 #############

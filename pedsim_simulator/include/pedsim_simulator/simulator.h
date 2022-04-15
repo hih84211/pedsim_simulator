@@ -4,14 +4,14 @@
 * Redistribution and use in source and binary forms, with or without
 * modification, are permitted provided that the following conditions are met:
 *
-*    # Redistributions of source code must retain the above copyright
-*       notice, this list of conditions and the following disclaimer.
-*    # Redistributions in binary form must reproduce the above copyright
-*       notice, this list of conditions and the following disclaimer in the
-*       documentation and/or other materials provided with the distribution.
-*    # Neither the name of the University of Freiburg nor the names of its
-*       contributors may be used to endorse or promote products derived from
-*       this software without specific prior written permission.
+*        # Redistributions of source code must retain the above copyright
+*             notice, this list of conditions and the following disclaimer.
+*        # Redistributions in binary form must reproduce the above copyright
+*             notice, this list of conditions and the following disclaimer in the
+*             documentation and/or other materials provided with the distribution.
+*        # Neither the name of the University of Freiburg nor the names of its
+*             contributors may be used to endorse or promote products derived from
+*             this software without specific prior written permission.
 *
 * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
 * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
@@ -77,61 +77,68 @@ using SimConfig = pedsim_simulator::PedsimSimulatorConfig;
 /// \details ROS interface to the scene object provided by pedsim
 class Simulator {
  public:
-  explicit Simulator(const ros::NodeHandle& node);
-  virtual ~Simulator();
-  bool initializeSimulation();
-  void runSimulation();
+    explicit Simulator(const ros::NodeHandle& node);
+    virtual ~Simulator();
+    bool initializeSimulation();
+    void runSimulation();
 
-  // callbacks
-  bool onPauseSimulation(std_srvs::Empty::Request& request,
-                         std_srvs::Empty::Response& response);
-  bool onUnpauseSimulation(std_srvs::Empty::Request& request,
-                           std_srvs::Empty::Response& response);
+    // callbacks
+    bool onPauseSimulation(std_srvs::Empty::Request& request,
+                                                 std_srvs::Empty::Response& response);
+    bool onUnpauseSimulation(std_srvs::Empty::Request& request,
+                                                     std_srvs::Empty::Response& response);
 
-  void spawnCallback(const ros::TimerEvent& event);
+    void spawnCallback(const ros::TimerEvent& event);
+    void updateRobotPositionFromGZ(const pedsim_msgs::AgentStateConstPtr& msg);
 
  protected:
-  void reconfigureCB(SimConfig& config, uint32_t level);
-  dynamic_reconfigure::Server<SimConfig> server_;
+    void reconfigureCB(SimConfig& config, uint32_t level);
+    dynamic_reconfigure::Server<SimConfig> server_;
 
  private:
-  void updateRobotPositionFromTF();
-  void publishAgents();
-  void publishGroups();
-  void publishObstacles();
-  void publishRobotPosition();
-  void publishWaypoints();
+    // Here
+    void updateRobotPositionFromTF();
+    void publishAgents();
+    void publishGroups();
+    void publishObstacles();
+    // Here
+    void publishRobotPosition();
+    void publishWaypoints();
 
  private:
-  ros::NodeHandle nh_;
-  bool paused_;
-  ros::Timer spawn_timer_;
+    ros::NodeHandle nh_;
+    bool paused_;
+    ros::Timer spawn_timer_;
 
-  // publishers
-  ros::Publisher pub_obstacles_;
-  ros::Publisher pub_agent_states_;
-  ros::Publisher pub_agent_groups_;
-  ros::Publisher pub_robot_position_;
-  ros::Publisher pub_waypoints_;
+    // publishers
+    ros::Publisher pub_obstacles_;
+    ros::Publisher pub_agent_states_;
+    ros::Publisher pub_agent_groups_;
+    ros::Publisher pub_robot_position_;
+    ros::Publisher pub_waypoints_;
 
-  // provided services
-  ros::ServiceServer srv_pause_simulation_;
-  ros::ServiceServer srv_unpause_simulation_;
+    // subscriber
+    ros::Subscriber sub_robot_position;
 
-  // frame ids
-  std::string frame_id_;
-  std::string robot_base_frame_id_;
+    // provided services
+    ros::ServiceServer srv_pause_simulation_;
+    ros::ServiceServer srv_unpause_simulation_;
 
-  // pointers and additional data
-  std::unique_ptr<tf::TransformListener> transform_listener_;
-  Agent* robot_;
-  tf::StampedTransform last_robot_pose_;
-  geometry_msgs::Quaternion last_robot_orientation_;
+    // frame ids
+    std::string frame_id_;
+    std::string robot_base_frame_id_;
 
-  inline std::string agentStateToActivity(
-      const AgentStateMachine::AgentState& state) const;
+    // pointers and additional data
+    std::unique_ptr<tf::TransformListener> transform_listener_;
+    Agent* robot_;
+    tf::StampedTransform last_robot_pose_;
+    geometry_msgs::Quaternion last_robot_orientation_;
+    pedsim_msgs::AgentState robot_pose;
 
-  inline std_msgs::Header createMsgHeader() const;
+    inline std::string agentStateToActivity(
+            const AgentStateMachine::AgentState& state) const;
+
+    inline std_msgs::Header createMsgHeader() const;
 };
 
 #endif
