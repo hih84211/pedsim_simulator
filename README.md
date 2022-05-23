@@ -24,7 +24,7 @@ The default version is now `melodic`.
 ```
 cd [workspace]/src
 git clone https://github.com/hih84211/pedsim_simulator.git  
-cd pedsim_ros
+cd pedsim_simulator
 git submodule update --init --recursive
 cd ../..
 catkin build -c  # or catkin_make
